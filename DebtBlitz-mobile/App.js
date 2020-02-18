@@ -21,30 +21,19 @@ import Authentication from './src/Store/Reducers/Authentication';
 // react-native-paper
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-// const Navigator = createStackNavigator({
-//   Home: Home,
-//   Login: Login,
-// }, 
-// {
-//   initialRouteName: 'Login',
-//   defaultNavigationOptions: {
-//     title: 'Login'
-//   } 
-// }
-// );
 const tabNav = createBottomTabNavigator({
-  Login: {
-      screen: Login,
-      navigationOptions: {
-          title: "Login",
-          tabBarIcon: ({ tintColor }) => (
-              <Icon
-                  name="microchip"
-                  size={17}
-                  color={tintColor} />
-          )
-      }
-  },
+  // Login: {
+  //     screen: Login,
+  //     navigationOptions: {
+  //         title: "Login",
+  //         tabBarIcon: ({ tintColor }) => (
+  //             <Icon
+  //                 name="microchip"
+  //                 size={17}
+  //                 color={tintColor} />
+  //         )
+  //     }
+  // },
   Home: {
       screen: Home,
       navigationOptions: {
@@ -58,6 +47,18 @@ const tabNav = createBottomTabNavigator({
       }
   }
 });
+
+const Navigator = createStackNavigator({
+  Home: tabNav,
+  Login: Login,
+}, 
+{
+  initialRouteName: 'Login',
+  defaultNavigationOptions: {
+    title: 'Login'
+  } 
+}
+);
 
 const rootReducer = combineReducers({
   accounts: Accounts,
@@ -79,8 +80,8 @@ const theme = {
   },
 };
 
-// const AppContainer = createAppContainer(Navigator);
-const AppContainer = createAppContainer(tabNav);
+const AppContainer = createAppContainer(Navigator);
+// const AppContainer = createAppContainer(tabNav);
 
 const App =  props => (
   <Provider store={store}>

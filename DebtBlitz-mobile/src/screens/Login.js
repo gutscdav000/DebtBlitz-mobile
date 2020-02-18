@@ -14,12 +14,18 @@ import { View } from 'react-native';
 const login = ( props ) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { navigate } = props.navigation;
 
   const submitCredentials = () => {
     // if credentials are valid
     props.requestHash(email, password);
     setPassword('');
   };
+
+  const navigateHome = () => { 
+    console.log('navigatehome')
+    navigate('Home')
+  }
 
 //   if( props.isAuthenticated ) {
 //       return (<Redirect to='/' />)
@@ -29,7 +35,6 @@ const login = ( props ) => {
     <View>
       <Appbar>
         <Appbar.Action icon="archive" onPress={() => console.log('Pressed archive')} />
-        <Appbar.Action icon="mail" onPress={() => console.log('Pressed mail')} />
         <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
         <Appbar.Action icon="delete" onPress={() => console.log('Pressed delete')} />
       </Appbar>
@@ -42,10 +47,10 @@ const login = ( props ) => {
         <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
         <Card.Actions>
           <Button icon="camera">Cancel</Button>
-          <Button>Ok</Button>
+          <Button onPress={navigateHome}>Ok</Button>
         </Card.Actions>
       </Card>
-      {/* <TabNavigator /> */}
+      <Button onPress={navigateHome}> Go Home</Button>
     </View>
   );
 };
