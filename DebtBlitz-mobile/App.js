@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import {createStackNavigator} from 'react-navigation-stack';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import {createAppContainer} from 'react-navigation';
@@ -18,8 +18,10 @@ import Accounts from './src/Store/Reducers/Accounts';
 import Bills from './src/Store/Reducers/Bills';
 import Incomes from './src/Store/Reducers/Incomes';
 import Authentication from './src/Store/Reducers/Authentication';
-// react-native-paper
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+// native-base
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const tabNav = createBottomTabNavigator({
   // Login: {
@@ -71,24 +73,27 @@ let store = createStore(rootReducer,
       applyMiddleware(thunk)
 );
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'tomato',
-    accent: 'yellow',
-  },
-};
-
 const AppContainer = createAppContainer(Navigator);
 // const AppContainer = createAppContainer(tabNav);
 
-const App =  props => (
-  <Provider store={store}>
-    <PaperProvider theme={theme}>
+const App =  props => {
+
+  useEffect( () => {
+    const load = async () => {
+      await Font.loadAsync({
+        Roboto: require('native-base/Fonts/Roboto.ttf'),
+        Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+        ...Ionicons.font,
+      });
+    }
+    load();
+  }, []);
+  
+  return <>
+    <Provider store={store}>
       <AppContainer />
-    </PaperProvider>
-  </Provider>
-)
+    </Provider>
+  </>
+}
 
 export default App;
