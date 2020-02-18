@@ -1,6 +1,8 @@
 import React from 'react';
-import {createStackNavigator} from 'react-navigation-stack';
+// import {createStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import {createAppContainer} from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 // screens
 import Home from './src/screens/Home';
 import Login from './src/screens/Login';
@@ -19,17 +21,43 @@ import Authentication from './src/Store/Reducers/Authentication';
 // react-native-paper
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-const Navigator = createStackNavigator({
-  Home: Home,
-  Login: Login,
-}, 
-{
-  initialRouteName: 'Login',
-  defaultNavigationOptions: {
-    title: 'Login'
-  } 
-}
-);
+// const Navigator = createStackNavigator({
+//   Home: Home,
+//   Login: Login,
+// }, 
+// {
+//   initialRouteName: 'Login',
+//   defaultNavigationOptions: {
+//     title: 'Login'
+//   } 
+// }
+// );
+const tabNav = createBottomTabNavigator({
+  Login: {
+      screen: Login,
+      navigationOptions: {
+          title: "Login",
+          tabBarIcon: ({ tintColor }) => (
+              <Icon
+                  name="microchip"
+                  size={17}
+                  color={tintColor} />
+          )
+      }
+  },
+  Home: {
+      screen: Home,
+      navigationOptions: {
+          tabBarLabel: "Memory",
+          tabBarIcon: ({ tintColor }) => (
+              <Icon
+                  name="memory"
+                  size={17}
+                  color={tintColor} />
+          )
+      }
+  }
+});
 
 const rootReducer = combineReducers({
   accounts: Accounts,
@@ -51,7 +79,8 @@ const theme = {
   },
 };
 
-const AppContainer = createAppContainer(Navigator);
+// const AppContainer = createAppContainer(Navigator);
+const AppContainer = createAppContainer(tabNav);
 
 const App =  props => (
   <Provider store={store}>

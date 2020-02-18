@@ -8,6 +8,8 @@ import * as actionTypes from '../Store/Actions';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import { Avatar, Button, Card, Title, Paragraph, Appbar } from 'react-native-paper';
 import { View } from 'react-native';
+//custom components
+// import TabNavigator from '../Components/TabNavigator';
 
 const login = ( props ) => {
   const [email, setEmail] = useState('');
@@ -43,6 +45,7 @@ const login = ( props ) => {
           <Button>Ok</Button>
         </Card.Actions>
       </Card>
+      {/* <TabNavigator /> */}
     </View>
   );
 };
