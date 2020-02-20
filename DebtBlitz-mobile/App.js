@@ -21,7 +21,8 @@ import Authentication from './src/Store/Reducers/Authentication';
 // native-base
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-
+// debug
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const tabNav = createBottomTabNavigator({
   // Login: {
@@ -70,7 +71,9 @@ const rootReducer = combineReducers({
 });
 
 let store = createStore(rootReducer, 
+    composeWithDevTools(
       applyMiddleware(thunk)
+    )
 );
 
 const AppContainer = createAppContainer(Navigator);

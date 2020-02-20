@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import {Text, View, Button, StyleSheet, ScrollView}  from 'react-native';
+import {Text, View, Button, StyleSheet, Image}  from 'react-native';
 // redux 
 import { connect } from 'react-redux';
 import axios from 'axios';
 import * as actionTypes from '../Store/Actions';
-// react-native-paper
+// native-base
+import { Container, Header, Content, Item, Input, Icon } from 'native-base';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -24,13 +25,19 @@ const login = ( props ) => {
     navigate('Home')
   }
 
-//   if( props.isAuthenticated ) {
-//       return (<Redirect to='/' />)
-//   }
+  console.log('dev working')
 
   return (
-    <View>
-      <Button onPress={navigateHome} title="Go Home"> Go Home</Button>
+    <View style={styles.backgroundView}>
+      <View style={styles.formContainer}>
+        <Item>
+          <Input placeholder='email'/>
+        </Item>
+        <Item>
+          <Input placeholder='password'/>
+        </Item>
+        <Button title="Login" onPress={navigateHome} />
+      </View>
     </View>
   );
 };
@@ -66,5 +73,20 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
+
+const styles = StyleSheet.create({
+  backgroundView: {
+      height: '100%',
+      width: '100%',
+      display: 'flex'
+      // backgroundColor: '#00E676'
+  },
+  formContainer: {
+    justifyContent: 'center',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    margin: 'auto',
+  }
+});
   
 export default connect(mapStateToProps, mapDispatchToProps)(login);
