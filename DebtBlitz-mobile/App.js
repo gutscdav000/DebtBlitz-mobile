@@ -77,7 +77,6 @@ let store = createStore(rootReducer,
 );
 
 const AppContainer = createAppContainer(Navigator);
-// const AppContainer = createAppContainer(tabNav);
 
 const App =  props => {
 

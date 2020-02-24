@@ -5,12 +5,15 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import * as actionTypes from '../Store/Actions';
 // native-base
-import { Container, Header, Content, Item, Input, Icon } from 'native-base';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import { Container, Header, Content,Item, Input, Icon } from 'native-base';
 
 
 const login = ( props ) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState({
+    value: '',
+    valid: false,
+    touched: false
+  });
   const [password, setPassword] = useState('');
   const { navigate } = props.navigation;
 
@@ -20,25 +23,40 @@ const login = ( props ) => {
     setPassword('');
   };
 
-  const navigateHome = () => { 
-    console.log('navigatehome')
-    navigate('Home')
+  const handleEmailChange = (text) => {
+    const newEmail = {...email};
+    const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    const isValid = pattern.test(text)
+    newEmail.valid = isValid;
+    newEmail.touched = true;
+    newEmail.value = text;
+    setEmail(newEmail);
   }
 
-  console.log('dev working')
 
   return (
-    <View style={styles.backgroundView}>
-      <View style={styles.formContainer}>
-        <Item>
-          <Input placeholder='email'/>
+    // <View style={styles.backgroundView}>
+      <Container style={styles.backgroundView}>
+        {/* <Header /> */}
+        <View style={styles.filler}/>
+        <Content style={styles.formContainer}>
+        <Item key="email">
+          <Input 
+            value={email.value}
+            onChangeText={text => handleEmailChange(text)}
+            placeholder='email'
+            error={email.touched && !email.valid}
+            success={email.touched && email.valid}/>
+          <Icon name='close-circle' />
         </Item>
-        <Item>
+        <Item key="pass">
           <Input placeholder='password'/>
+          <Icon name='close-circle' />
         </Item>
-        <Button title="Login" onPress={navigateHome} />
-      </View>
-    </View>
+        <Button title="Login" onPress={() => navigate('Home')} />
+        </Content>
+      </Container>
+    // </View>
   );
 };
 
@@ -76,16 +94,23 @@ const mapDispatchToProps = (dispatch) => {
 
 const styles = StyleSheet.create({
   backgroundView: {
-      height: '100%',
-      width: '100%',
-      display: 'flex'
+      // height: '100%',
+      // width: '100%',
+      // display: 'flex',
+      // alignItems: 'center',
+      // justifyContent: 'center'
       // backgroundColor: '#00E676'
+      // borderWidth: 1,
+      // borderColor: 'blue',
   },
   formContainer: {
-    justifyContent: 'center',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    margin: 'auto',
+    // width: '90%',
+    borderWidth: 1,
+    borderColor: 'red',
+    // margin: 'auto'
+  },
+  filler: {
+    height: 100
   }
 });
   
