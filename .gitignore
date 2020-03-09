@@ -5,6 +5,7 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 .yarn-integrity
+package-lock.json
 .watchmanconfig.json
 *~
 # expo
