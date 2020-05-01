@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
-// import {createStackNavigator} from 'react-navigation-stack';
+import React, { useEffect, useState } from 'react';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import {createAppContainer} from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+//fonts
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
 // screens
 import Home from './src/screens/Home';
 import Login from './src/screens/Login';
+import Messages from './src/screens/Messages';
+import Tools from './src/screens/Tools';
+import Account from './src/screens/Account';
 // redux
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -19,36 +24,63 @@ import Bills from './src/Store/Reducers/Bills';
 import Incomes from './src/Store/Reducers/Incomes';
 import Authentication from './src/Store/Reducers/Authentication';
 // native-base
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+// import * as Font from 'expo-font';
+// import { Ionicons } from '@expo/vector-icons';
+
 // debug
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const tabNav = createBottomTabNavigator({
-  // Login: {
-  //     screen: Login,
-  //     navigationOptions: {
-  //         title: "Login",
-  //         tabBarIcon: ({ tintColor }) => (
-  //             <Icon
-  //                 name="microchip"
-  //                 size={17}
-  //                 color={tintColor} />
-  //         )
-  //     }
-  // },
   Home: {
       screen: Home,
       navigationOptions: {
-          tabBarLabel: "Memory",
+          tabBarLabel: "Home",
           tabBarIcon: ({ tintColor }) => (
               <Icon
-                  name="memory"
-                  size={17}
+                  name="chart-bar"
+                  size={25}
                   color={tintColor} />
           )
       }
+  },
+  Messages: {
+    screen: Messages,
+    navigationOptions: {
+        tabBarLabel: "Messages",
+        tabBarIcon: ({ tintColor }) => (
+            <Icon
+                name="comments"
+                size={25}
+                color={tintColor} />
+        )
+    }
+},
+Tools: {
+  screen: Tools,
+  navigationOptions: {
+      tabBarLabel: "Tools",
+      tabBarIcon: ({ tintColor }) => (
+          <Icon
+              name="cogs"
+              size={24}
+              color={tintColor} />
+      )
   }
+},
+Account: {
+  screen: Account,
+  navigationOptions: {
+      tabBarLabel: "Account",
+      tabBarIcon: ({ tintColor }) => (
+          <Icon
+              name="user"
+              size={25}
+              color={tintColor} />
+      )
+  }
+},
+}, {
+  tabBarOptions: { showLabel: false }
 });
 
 const Navigator = createStackNavigator({
@@ -56,7 +88,8 @@ const Navigator = createStackNavigator({
   Login: Login,
 }, 
 {
-  initialRouteName: 'Login',
+  // initialRouteName: 'Login',
+  initialRouteName: 'Home',
   defaultNavigationOptions: {
     title: 'Login'
   } 
@@ -79,23 +112,40 @@ let store = createStore(rootReducer,
 const AppContainer = createAppContainer(Navigator);
 
 const App =  props => {
+  const [ loadedFont, setLoadedFont ] = useState(false);
 
   useEffect( () => {
-    const load = async () => {
+    // const load = async () => {
+    //   await Font.loadAsync({
+    //     Roboto: require('native-base/Fonts/Roboto.ttf'),
+    //     Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    //     ...Ionicons.font,
+    //   });
+    // }
+    const fetchFonts = async () => {
       await Font.loadAsync({
-        Roboto: require('native-base/Fonts/Roboto.ttf'),
-        Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-        ...Ionicons.font,
+        'lato-black': require('./assets/fonts/Lato-Black.ttf'),
+        'lato-black-italic': require('./assets/fonts/Lato-BoldItalic.ttf'),
+        'lato-bold': require('./assets/fonts/Lato-Bold.ttf'),
+        'lato-italic': require('./assets/fonts/Lato-Italic.ttf'),
+        'lato-light': require('./assets/fonts/Lato-Light.ttf'),
+        'lato-light-italic': require('./assets/fonts/Lato-LightItalic.ttf'),
+        'lato-regular': require('./assets/fonts/Lato-Regular.ttf'),
+        'lato-thin': require('./assets/fonts/Lato-Thin.ttf'),
+        'lato-thin-italic': require('./assets/fonts/Lato-ThinItalic.ttf'),
       });
-    }
-    load();
+      setLoadedFont(true);
+    };
+    fetchFonts();
   }, []);
-  
-  return <>
-    <Provider store={store}>
-      <AppContainer />
-    </Provider>
-  </>
+
+
+
+  return !loadedFont? null: <> 
+        <Provider store={store}>
+          <AppContainer />
+        </Provider>
+      </>
 }
 
 export default App;

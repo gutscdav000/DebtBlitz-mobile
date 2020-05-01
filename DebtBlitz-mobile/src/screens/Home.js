@@ -11,6 +11,7 @@ import { formatMoney } from 'accounting';
 // chart
 import {Doughnut} from 'react-chartjs-2';
 
+
 class Home extends Component { 
 
     componentDidMount() {
@@ -128,7 +129,11 @@ class Home extends Component {
         :
         <View>
             <View>
-                <Text> NOT BROKEN </Text>
+                <Text style={{fontFamily: 'lato-regular'}}> Not Broken </Text>
+                <Text style={{fontFamily: 'lato-black'}}> Not Broken </Text>
+                <Text style={{fontFamily: 'lato-black-italic'}}> Not Broken </Text>
+                <Text style={{fontFamily: 'lato-bold'}}> Not Broken </Text>
+                <Text style={{fontFamily: 'lato-thin'}}> Not Broken </Text>
             </View>
             <View>
               <List>
