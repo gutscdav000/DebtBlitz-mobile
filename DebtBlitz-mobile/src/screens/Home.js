@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {Text, View, Button, StyleSheet, ScrollView}  from 'react-native';
+import { View, Button, StyleSheet, ScrollView}  from 'react-native';
+// native base
+import { Container, Content, List, ListItem, Text } from 'native-base';
 //redux
 import { connect } from 'react-redux';
 import * as actionTypes from '../Store/Actions';
@@ -83,39 +85,45 @@ class Home extends Component {
     render() {
     //   const { classes } = this.props;
   
-      const accounts = this.props.accounts &&
-                       this.props.accounts.status === 200 ?
-              this.props.accounts.data.accounts : [];
-      const bills = this.props.bills &&
-                    this.props.bills.status === 200 &&
-                    this.props.bills.data &&
-                    this.props.bills.data.bills ?
-          this.props.bills.data.bills : [];
+      // const accounts = this.props.accounts &&
+      //                  this.props.accounts.status === 200 ?
+      //         this.props.accounts.data.accounts : [];
+      // const bills = this.props.bills &&
+      //               this.props.bills.status === 200 &&
+      //               this.props.bills.data &&
+      //               this.props.bills.data.bills ?
+      //     this.props.bills.data.bills : [];
   
-      const incomes = this.props.incomes &&
-                      this.props.incomes.status === 200 &&
-                      this.props.incomes.data &&
-                      this.props.incomes.data.incomes ?
-          this.props.incomes.data.incomes : [];
+      // const incomes = this.props.incomes &&
+      //                 this.props.incomes.status === 200 &&
+      //                 this.props.incomes.data &&
+      //                 this.props.incomes.data.incomes ?
+      //     this.props.incomes.data.incomes : [];
   
-      let pctData, doughnut;
-      let accountsTotal = 0.0, billsTotal = 0.0, incomesTotal = 0.0;
-      let accountsPct = 0.0, billsPct = 0.0, incomesPct = 0.0;
-      if(accounts !== [] && accounts !== undefined && accounts !== null
-         && bills !== [] && bills !== undefined && bills !== null
-         && incomes !== [] && incomes !== undefined && incomes !== null) {
-        pctData = this.computePercentages(accounts, bills, incomes);
-        doughnut = this.getDoughnut(pctData.accountsPct, pctData.billsPct, pctData.incomesPct);
-        accountsTotal =formatMoney(pctData.accountsTot);
-        billsTotal = formatMoney(pctData.billsTot);
-        incomesTotal = formatMoney(pctData.incomesTot);
-        accountsPct = pctData.accountsPct;
-        billsPct = pctData.billsPct;
-        incomesPct = pctData.incomesPct;
-      }
-  
+      // let pctData, doughnut;
+      // let accountsTotal = 0.0, billsTotal = 0.0, incomesTotal = 0.0;
+      // let accountsPct = 0.0, billsPct = 0.0, incomesPct = 0.0;
+      // if(accounts !== [] && accounts !== undefined && accounts !== null
+      //    && bills !== [] && bills !== undefined && bills !== null
+      //    && incomes !== [] && incomes !== undefined && incomes !== null) {
+      //   pctData = this.computePercentages(accounts, bills, incomes);
+      //   doughnut = this.getDoughnut(pctData.accountsPct, pctData.billsPct, pctData.incomesPct);
+      //   accountsTotal =formatMoney(pctData.accountsTot);
+      //   billsTotal = formatMoney(pctData.billsTot);
+      //   incomesTotal = formatMoney(pctData.incomesTot);
+      //   accountsPct = pctData.accountsPct;
+      //   billsPct = pctData.billsPct;
+      //   incomesPct = pctData.incomesPct;
+      // }
+      
+      const accounts = [
+        {name: 'test 1', value: 5000.00},
+        {name: 'test 2', value: 15000.00},
+        {name: 'test 3', value: 200.00},
+      ];
+
       return (
-        accounts === [] && bills === [] && incomes === [] ? 
+        accounts === [] /*&& bills === [] && incomes === []*/ ? 
         <View>loading</View>
         :
         <View>
@@ -123,13 +131,13 @@ class Home extends Component {
                 <Text> NOT BROKEN </Text>
             </View>
             <View>
-                {accounts}
-            </View>
-            <View>
-                {bills}
-            </View>
-            <View>
-                {incomes}
+              <List>
+                {accounts.map((value, index) => (
+                      <ListItem key={'a'+ index}>
+                        <Text>{value.name}: {value.value}</Text>
+                      </ListItem>
+                  ))}
+              </List>
             </View>
         </View>
       );
