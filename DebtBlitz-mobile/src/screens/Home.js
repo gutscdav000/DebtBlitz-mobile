@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet, ScrollView}  from 'react-native';
+import { View, ImageBackground, Image, Button, StyleSheet, ScrollView}  from 'react-native';
 // native base
 import { Container, Content, List, ListItem, Text } from 'native-base';
 //redux
@@ -10,7 +10,8 @@ import axios from 'axios';
 import { formatMoney } from 'accounting';
 // chart
 import {Doughnut} from 'react-chartjs-2';
-
+// custom 
+import ClickableCardItem from '../Components/ClickableCardItem';
 
 class Home extends Component { 
 
@@ -128,26 +129,35 @@ class Home extends Component {
         <View>loading</View>
         :
         <View>
-            <View>
-                <Text style={{fontFamily: 'lato-regular'}}> Not Broken </Text>
-                <Text style={{fontFamily: 'lato-black'}}> Not Broken </Text>
-                <Text style={{fontFamily: 'lato-black-italic'}}> Not Broken </Text>
-                <Text style={{fontFamily: 'lato-bold'}}> Not Broken </Text>
-                <Text style={{fontFamily: 'lato-thin'}}> Not Broken </Text>
+            <View style={styles.imageContainer}>
+              <Image 
+                style={styles.image}
+                source={require('../../assets/images/green-grass.jpg')} 
+              >
+              </Image>
             </View>
             <View>
-              <List>
-                {accounts.map((value, index) => (
-                      <ListItem key={'a'+ index}>
-                        <Text>{value.name}: {value.value}</Text>
-                      </ListItem>
-                  ))}
-              </List>
+              <ClickableCardItem />
             </View>
         </View>
       );
     }
   }
+
+  const styles = StyleSheet.create({
+    imageContainer: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: 'red'
+    },
+    image: {
+      // flex: 1
+      borderWidth: 1,
+      borderColor: 'blue'
+    },
+  })
   
   const mapStateToProps = (state) => {
   
