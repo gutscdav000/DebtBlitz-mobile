@@ -90,9 +90,7 @@ const Navigator = createStackNavigator({
 {
   // initialRouteName: 'Login',
   initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    title: 'Login'
-  } 
+  headerMode: 'none',
 }
 );
 
@@ -143,7 +141,7 @@ const App =  props => {
 
   return !loadedFont? null: <> 
         <Provider store={store}>
-          <AppContainer />
+          <AppContainer/>
         </Provider>
       </>
 }

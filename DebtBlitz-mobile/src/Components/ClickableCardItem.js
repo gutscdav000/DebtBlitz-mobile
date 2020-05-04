@@ -2,27 +2,10 @@ import React from 'react';
 import { Card, CardItem, Text, List, ListItem, Accordion } from 'native-base';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const clickableCardItem = props => {
-    // const renderHeader = (item, expanded) => (
-    //     <View style={styles.renderHeader}>
-    //     <Text style={{ fontWeight: "600", fontFamily: 'lato-regular' }}>
-    //         {" "}{item.title}
-    //         </Text>
-    //         {expanded
-    //         ? <Icon name="minus"size={35} />
-    //         : <Icon name="plus"size={35} />}
-    //     </View>
-    // );
-
-    // const renderContent = (item) => (
-    //     <Text
-    //         style={styles.renderContent}
-    //     >
-    //         {item.content}
-    //     </Text>
-    // );
     const renderHeader = (item, expanded) => (
         <View style={styles.renderHeader}>
         <Text style={styles.text}>
@@ -49,7 +32,7 @@ const clickableCardItem = props => {
         ];
 
         return (
-            <List>
+            <ScrollView>
                 <Accordion
                     dataArray={dataArray}
                     animation
@@ -57,7 +40,7 @@ const clickableCardItem = props => {
                     renderHeader={renderHeader}
                     renderContent={renderContent}
                 />
-            </List>
+            </ScrollView>
         )
 }
 

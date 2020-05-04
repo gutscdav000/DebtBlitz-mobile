@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, Image, Button, StyleSheet, ScrollView}  from 'react-native';
+import { View, ImageBackground, Image, Button, StyleSheet, Dimensions }  from 'react-native';
 // native base
-import { Container, Content, List, ListItem, Text } from 'native-base';
+import { Header, Container, Content, List, ListItem, Text } from 'native-base';
 //redux
 import { connect } from 'react-redux';
 import * as actionTypes from '../Store/Actions';
 import axios from 'axios';
 //accounting
 import { formatMoney } from 'accounting';
-// chart
-import {Doughnut} from 'react-chartjs-2';
 // custom 
 import ClickableCardItem from '../Components/ClickableCardItem';
+import { withOrientation } from 'react-navigation';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { LinearGradient } from 'expo-linear-gradient';
+const {width, height } = Dimensions.get("screen")
+//chart 
+import moment from 'moment';
+import { Circle } from 'react-native-svg';
+import { AreaChart, Grid } from 'react-native-svg-charts';
+// import moment from 'moment';
 
 class Home extends Component { 
 
@@ -50,38 +57,10 @@ class Home extends Component {
         incomesPct: incPct.toFixed(2)
       };
     }
-  
-    getDoughnut = (accounts, bills, incomes) => {
-  
-      let data = {
-        labels: ['accounts', 'bills', 'incomes'],
-        datasets: [
-          {
-            label: 'Finances Snapshot',
-            backgroundColor: ['#AAF255', '#EF4FA6', '#FFAF49'],
-            borderColor: '#FFF',
-            borderWidth: 2,
-            data: [accounts, bills, incomes]
-          }
-        ]
-      };
-  
-      return (
-        <Doughnut
-            data={data}
-            options={{
-              title:{
-                display:false,
-                text:'',
-                fontSize:20
-              },
-              legend:{
-                display:false,
-                position:'right'
-              }
-            }}
-          />
-      );
+
+
+    renderTabBar() {
+      return <StatusBar hidden/>
     }
   
     render() {
@@ -109,7 +88,6 @@ class Home extends Component {
       //    && bills !== [] && bills !== undefined && bills !== null
       //    && incomes !== [] && incomes !== undefined && incomes !== null) {
       //   pctData = this.computePercentages(accounts, bills, incomes);
-      //   doughnut = this.getDoughnut(pctData.accountsPct, pctData.billsPct, pctData.incomesPct);
       //   accountsTotal =formatMoney(pctData.accountsTot);
       //   billsTotal = formatMoney(pctData.billsTot);
       //   incomesTotal = formatMoney(pctData.incomesTot);
@@ -128,35 +106,91 @@ class Home extends Component {
         accounts === [] /*&& bills === [] && incomes === []*/ ? 
         <View>loading</View>
         :
-        <View>
-            <View style={styles.imageContainer}>
-              <Image 
+        <Container style={styles.container} contentContainerStyle={{ flex: 1 }}>
+          <Header style={styles.header}>
+            {/* <ImageBackground style={styles.image} source={require('../../assets/images/shades-of-green.jpg')}> */}
+            <LinearGradient
+                colors={['#04ff73', '#03fbc0', '#00d05c']}
+                start={[0.15, 0.35, 0.75]}
                 style={styles.image}
-                source={require('../../assets/images/green-grass.jpg')} 
-              >
-              </Image>
-            </View>
-            <View>
+            >
+              <View style={styles.outter}>
+                <View style={styles.inner}>
+                  <Text style={{fontFamily: 'lato-bold', fontSize: 30, color: 'white'}}> Debts</Text>
+                  <Text style={{fontFamily: 'lato-regular', fontSize: 26, color: 'white'}}> $350.5k</Text>
+                </View>
+                <View style={styles.inner}> 
+                  <MaterialIcon
+                    name="monetization-on"
+                    size={72}
+                    color="white" 
+                  />
+                </View>
+                <View style={styles.inner}>
+                  <Text style={{fontFamily: 'lato-bold', fontSize: 30, color: 'white'}}> Assets</Text>
+                  <Text style={{fontFamily: 'lato-bold', fontSize: 26, color: 'white'}}> $3.5M</Text>
+                </View>
+              </View>
+            </LinearGradient>
+            {/* </ImageBackground> */}
+            </Header>
+            <View style={styles.content} >                     
+              <View style={styles.contentHeader}>
+                <Text style={{fontFamily: 'lato-regular', fontSize: 25}}> Transactions for May 2020</Text>
+              </View>
               <ClickableCardItem />
-            </View>
-        </View>
+          </View>
+        </Container>
       );
     }
   }
 
   const styles = StyleSheet.create({
+    container: {
+    },
     imageContainer: {
       flex: 1,
       flexDirection: 'column',
       justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: 'red'
     },
     image: {
-      // flex: 1
-      borderWidth: 1,
-      borderColor: 'blue'
+      width: width,
+      height: height,
+      marginTop: -65,
+      paddingTop: 60
     },
+    header: {
+      backgroundColor: "transparent",
+      elevation: 0,
+      borderBottomWidth: 0,
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
+    content: {
+      display: 'flex',      
+      marginTop: 80,
+      backgroundColor: "white",
+      flex: 1,
+      borderTopEndRadius: 50,
+      borderTopStartRadius: 50,
+    },
+    outter: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    inner: {
+      // backgroundColor: 'black',
+      // width: 150,
+      padding: 10,
+      color: 'white',
+      fontSize: 30
+    },
+    contentHeader: {
+      alignSelf: 'center',
+      marginTop: 15,
+      marginBottom: 15,
+    }
   })
   
   const mapStateToProps = (state) => {
