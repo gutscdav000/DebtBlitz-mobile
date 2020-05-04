@@ -108,7 +108,7 @@ class Home extends Component {
             {/* <ImageBackground style={styles.image} source={require('../../assets/images/shades-of-green.jpg')}> */}
             <LinearGradient
                 colors={['#04ff73', '#03fbc0', '#00d05c']}
-                start={[0.15, 0.35, 0.75]}
+                start={[0.35, 0.75]}
                 style={styles.image}
             >
               <View style={styles.outter}>
@@ -161,6 +161,8 @@ class Home extends Component {
                   yAxisLabel="$"
                   yAxisSuffix="k"
                   yAxisInterval={1} // optional, defaults to 1
+                  withVerticalLabels={false}
+                  withHorizontalLabels={false}
                   chartConfig={{
                     backgroundColor: "#FFF",
                     backgroundGradientFrom: "white",
