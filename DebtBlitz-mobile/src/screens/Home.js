@@ -14,11 +14,8 @@ import { withOrientation } from 'react-navigation';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 const {width, height } = Dimensions.get("screen")
-//chart 
-import moment from 'moment';
-import { Circle } from 'react-native-svg';
-import { AreaChart, Grid } from 'react-native-svg-charts';
-// import moment from 'moment';
+// charts
+import { LineChart } from "react-native-chart-kit";
 
 class Home extends Component { 
 
@@ -134,7 +131,52 @@ class Home extends Component {
             </LinearGradient>
             {/* </ImageBackground> */}
             </Header>
-            <View style={styles.content} >                     
+            <View style={styles.content} >    
+              <View style={styles.contentHeader}>
+                <LineChart
+                  data={{
+                    labels: ["January", "February", "March", "April", "May", "June"],
+                    datasets: [
+                      {
+                        data: [
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100
+                        ]
+                      }
+                    ]
+                  }}
+                  width={width * 0.9} // from react-native
+                  height={220}
+                  yAxisLabel="$"
+                  yAxisSuffix="k"
+                  yAxisInterval={1} // optional, defaults to 1
+                  chartConfig={{
+                    backgroundColor: "#FFF",
+                    backgroundGradientFrom: "white",
+                    backgroundGradientTo: "white",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                      borderRadius: 16
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#ffa726"
+                    }
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16
+                  }}
+                />  
+              </View>                 
               <View style={styles.contentHeader}>
                 <Text style={{fontFamily: 'lato-regular', fontSize: 25}}> Transactions for May 2020</Text>
               </View>
