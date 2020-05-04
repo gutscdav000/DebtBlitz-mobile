@@ -137,19 +137,26 @@ class Home extends Component {
                   data={{
                     labels: ["January", "February", "March", "April", "May", "June"],
                     datasets: [
-                      {
-                        data: [
+                        {data: [
                           Math.random() * 100,
                           Math.random() * 100,
                           Math.random() * 100,
                           Math.random() * 100,
                           Math.random() * 100,
                           Math.random() * 100
-                        ]
-                      }
-                    ]
+                        ], color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`},
+                        {data: [
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100,
+                          Math.random() * 100
+                        ], color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`},
+                    ],
+                    legend: ["with discretionary", "with minimum payments"]
                   }}
-                  width={width * 0.9} // from react-native
+                  width={width} // from react-native
                   height={220}
                   yAxisLabel="$"
                   yAxisSuffix="k"
@@ -159,18 +166,24 @@ class Home extends Component {
                     backgroundGradientFrom: "white",
                     backgroundGradientTo: "white",
                     decimalPlaces: 2, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
-                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    color: (opacity = 1) => `rgba(44, 80, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(25, 25, 25, ${opacity})`,
                     style: {
                       borderRadius: 16
                     },
-                    propsForDots: {
-                      r: "6",
-                      strokeWidth: "2",
-                      stroke: "#ffa726"
+                    // propsForDots: {
+                    //   r: "6",
+                    //   strokeWidth: "2",
+                    //   stroke: "#ffa726"
+                    // },
+                    propsForBackgroundLines: {
+                      strokeWidth: 0
+                    },
+                    propsForLabels: {
+                      color: 'black',
                     }
                   }}
-                  bezier
+                  // bezier
                   style={{
                     marginVertical: 8,
                     borderRadius: 16
