@@ -16,6 +16,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const {width, height } = Dimensions.get("screen")
 // charts
 import { LineChart } from "react-native-chart-kit";
+import { ScrollView } from 'react-native-gesture-handler';
 
 class Home extends Component { 
 
@@ -107,8 +108,10 @@ class Home extends Component {
           <Header style={styles.header}>
             {/* <ImageBackground style={styles.image} source={require('../../assets/images/shades-of-green.jpg')}> */}
             <LinearGradient
-                colors={['#04ff73', '#03fbc0', '#00d05c']}
-                start={[0.35, 0.75]}
+                // colors={['#04ff73', '#03fbc0', '#00d05c']}
+                // start={[0.15, 0.35, 0.75]}
+                colors={['#21CE99', '#04ff73']}
+                start={[0.0, 0.0]}
                 style={styles.image}
             >
               <View style={styles.outter}>
@@ -132,31 +135,32 @@ class Home extends Component {
             {/* </ImageBackground> */}
             </Header>
             <View style={styles.content} >    
+            <ScrollView style={{marginTop: 40}}>
               <View style={styles.contentHeader}>
                 <LineChart
                   data={{
                     labels: ["January", "February", "March", "April", "May", "June"],
                     datasets: [
                         {data: [
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100
-                        ], color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`},
+                          50000,
+                          60000,
+                          75000,
+                          100000,
+                          125000,
+                          160000
+                        ], color: (opacity = 1) => `rgb(33, 206, 153, ${opacity})`},
                         {data: [
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100,
-                          Math.random() * 100
-                        ], color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`},
+                          150000,
+                          175000,
+                          200000,
+                          250000,
+                          300000,
+                          375000
+                        ], color: (opacity = 1) => `rgb(206, 62, 33, ${opacity})`},
                     ],
-                    legend: ["with discretionary", "with minimum payments"]
+                    legend: ["with discretionary", "min payments"]
                   }}
-                  width={width} // from react-native
+                  width={width} 
                   height={220}
                   yAxisLabel="$"
                   yAxisSuffix="k"
@@ -173,11 +177,6 @@ class Home extends Component {
                     style: {
                       borderRadius: 16
                     },
-                    // propsForDots: {
-                    //   r: "6",
-                    //   strokeWidth: "2",
-                    //   stroke: "#ffa726"
-                    // },
                     propsForBackgroundLines: {
                       strokeWidth: 0
                     },
@@ -185,7 +184,6 @@ class Home extends Component {
                       color: 'black',
                     }
                   }}
-                  // bezier
                   style={{
                     marginVertical: 8,
                     borderRadius: 16
@@ -193,9 +191,20 @@ class Home extends Component {
                 />  
               </View>                 
               <View style={styles.contentHeader}>
-                <Text style={{fontFamily: 'lato-regular', fontSize: 25}}> Transactions for May 2020</Text>
+                <Text style={{fontFamily: 'lato-regular', fontSize: 25}}> Transaction Organizer</Text>
               </View>
+              
+              <List>
+                <ListItem itemDivider >
+                  <Text style={{fontFamily: 'lato-regular', fontSize: 22}}>may</Text>
+                </ListItem>
               <ClickableCardItem />
+              <ListItem itemDivider>
+              <Text style={{fontFamily: 'lato-regular', fontSize: 22}}>june</Text>
+              </ListItem>
+              <ClickableCardItem />
+              </List>
+            </ScrollView>
           </View>
         </Container>
       );
@@ -225,7 +234,7 @@ class Home extends Component {
     },
     content: {
       display: 'flex',      
-      marginTop: 80,
+      marginTop: 70,
       backgroundColor: "white",
       flex: 1,
       borderTopEndRadius: 50,
