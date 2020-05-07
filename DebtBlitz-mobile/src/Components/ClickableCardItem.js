@@ -10,7 +10,22 @@ const clickableCardItem = props => {
     const [ state, setState ] = useState({
         paid: true,
         value: 0,
+        expanded: 0,
+        dataArray: [
+            { title: "David's monthly Income", value: 6000.00, },
+            { title: "Monthly Expenses", value: -2000.00, },
+            { title: "Transfer Checking to Life Insurance", value: -1500.00, }
+        ],
     });
+
+    const handleSubmission = (item) => {
+        const newDataArray = state.dataArray.filter(el => el.title !== item.title &&
+                                         el.value !== item.value);
+        setState({
+            ...state,
+            dataArray: newDataArray,
+        });
+    }
 
     const handleOtherAmount = (text, item) => {
         const itemValue = +item.value < 0 ? +item.value * -1 : +item.value;
@@ -42,7 +57,7 @@ const clickableCardItem = props => {
             </View>
         );
     }
-    const renderContent = (item, expanded) => {
+    const renderContent = (item) => {
         
         return (
         <View style={styles.renderContent}>
@@ -68,7 +83,9 @@ const clickableCardItem = props => {
                     >
                         <Text> Paid in Full</Text>
                     </Button>
-                    <Button type='submit' style={styles.paidButtonOn} >
+                    <Button 
+                        style={styles.paidButtonOn}
+                        onPress={() => handleSubmission(item)} >
                         <Text> submit </Text>
                     </Button>
                 </View>
@@ -76,16 +93,11 @@ const clickableCardItem = props => {
         </View>
     );
         }
-        const dataArray = [
-            { title: "Income", value: 6000.00, content: "Lorem ipsum dolor sit amet" },
-            { title: "Expense", value: -2000.00, content: "Lorem ipsum dolor sit amet" },
-            { title: "Transfer", value: -1500.00, content: "Lorem ipsum dolor sit amet" }
-        ];
 
         return (
             <ScrollView>
                 <Accordion
-                    dataArray={dataArray}
+                    dataArray={state.dataArray}
                     expanded
                     renderHeader={renderHeader}
                     renderContent={renderContent}
@@ -129,7 +141,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#AAA',
         borderWidth: 2,
         borderColor: '#21CE99',
-        margin: 2
+        margin: 2,
     },
     formButtonView: {
         width: 120,

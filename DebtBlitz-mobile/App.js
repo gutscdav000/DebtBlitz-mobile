@@ -113,13 +113,7 @@ const App =  props => {
   const [ loadedFont, setLoadedFont ] = useState(false);
 
   useEffect( () => {
-    // const load = async () => {
-    //   await Font.loadAsync({
-    //     Roboto: require('native-base/Fonts/Roboto.ttf'),
-    //     Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-    //     ...Ionicons.font,
-    //   });
-    // }
+
     const fetchFonts = async () => {
       await Font.loadAsync({
         'lato-black': require('./assets/fonts/Lato-Black.ttf'),
@@ -131,6 +125,9 @@ const App =  props => {
         'lato-regular': require('./assets/fonts/Lato-Regular.ttf'),
         'lato-thin': require('./assets/fonts/Lato-Thin.ttf'),
         'lato-thin-italic': require('./assets/fonts/Lato-ThinItalic.ttf'),
+        // hack to get native base working
+        'Roboto': require('native-base/Fonts/Roboto.ttf'),
+        'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       });
       setLoadedFont(true);
     };
