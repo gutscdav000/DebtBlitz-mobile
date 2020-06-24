@@ -20,9 +20,10 @@ import thunk from 'redux-thunk';
 // import { PersistGate } from 'redux-persist/integration/react'
 //reducers
 import Accounts from './src/Store/Reducers/Accounts';
-import Bills from './src/Store/Reducers/Bills';
+import Debts from './src/Store/Reducers/Debts';
 import Incomes from './src/Store/Reducers/Incomes';
 import Authentication from './src/Store/Reducers/Authentication';
+import Actions from './src/Store/Reducers/Actions';
 // native-base
 // import * as Font from 'expo-font';
 // import { Ionicons } from '@expo/vector-icons';
@@ -96,9 +97,10 @@ const Navigator = createStackNavigator({
 
 const rootReducer = combineReducers({
   accounts: Accounts,
-  bills: Bills,
+  debts: Debts,
   incomes: Incomes,
   authentication: Authentication,
+  actions: Actions
 });
 
 let store = createStore(rootReducer, 

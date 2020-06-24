@@ -7,15 +7,19 @@ import { ScrollView } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get("window"); 
 
 const clickableCardItem = props => {
+    const dataArray = props.actions.map(elem => {
+        return {
+            title: elem.name, 
+            value: +elem.interest + +elem.principal,
+            principal: +elem.principal,
+            interest: +elem.interest
+        };
+    });
     const [ state, setState ] = useState({
         paid: true,
         value: 0,
         expanded: 0,
-        dataArray: [
-            { title: "David's monthly Income", value: 6000.00, },
-            { title: "Monthly Expenses", value: -2000.00, },
-            { title: "Transfer Checking to Life Insurance", value: -1500.00, }
-        ],
+        dataArray,
     });
 
     const handleSubmission = (item) => {

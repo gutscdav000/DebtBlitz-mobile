@@ -1,32 +1,27 @@
 import * as actionTypes from '../Actions';
 
 const initialState = {
-    accounts: [],
-    loading: false,
+    actions: [],
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case actionTypes.ACCOUNTS_REQUESTED:
-            console.log('requested')
+        case actionTypes.ACTIONS_REQUESTED:
             return {
-                loading: true,
-                accounts: [],
+                actions: [],
             };
-        case actionTypes.ACCOUNTS_RECEIVED:
-            console.log('received')
+        case actionTypes.ACTIONS_RECEIVED:
             return {
                 ...state,
-                loading: false,
-                data: action.accountData
+                actions: action.actions
             };
-        case actionTypes.ACCOUNTS_ERROR:
+        case actionTypes.ACTIONS_ERROR:
             // TODO... error handling
-            console.log('errr')
+            console.log('actions error');
             console.log(action.error);
             return {
                 ...state
-            }
+            };
         default:
             return state;
     }
